@@ -82,3 +82,5 @@ Route::get('view', function () {
 
 //控制器参数绑定
 Route::any('member/{id}',['uses'=>'MemberController@info'])->where('id','[0-9]+');
+
+Route::any('test1',['uses'=>'StudentController@test1']);
