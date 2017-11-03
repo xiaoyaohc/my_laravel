@@ -6,6 +6,7 @@
  * Time: 9:48
  */
 namespace App\Http\Controllers;
+use App\Student;
 use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller{
@@ -116,5 +117,78 @@ class StudentController extends Controller{
         //返回表中字段数据的总和
         $sum=DB::table('student')->sum('age');
         var_dump($sum);
+    }
+    //使用模型查询数据
+    public function orm1(){
+        //查询表的所有记录（all()）
+        /*$students=Student::all();
+        dd($students);*/
+        //获取结果集的第一条数据[主键查找](find())
+        //$student=Student::find(4);
+        //根据主键查找，查找不到就报错（findOrFail()）
+        /*$student=Student::findOrFail(5);
+        dd($student);*/
+
+        //查询所有的数据(get())
+        //$students=Student::get();
+        //获取结果集的第一条数据(first())
+        /*$student=Student::where('id','>',2)->orderBy('age','desc')->first();
+        dd($student);*/
+        //每次查询指定条数,防止服务压力过大(chunk)
+        /*echo "<pre>";
+        Student::chunk(2,function ($students){
+            var_dump($students);
+        });*/
+        //聚合函数
+        //$num=Student::count();//统计表的记录数
+        $max=Student::where('id','>',2)->max('age');//返回表中字段数据的最大值
+        var_dump($max);
+    }
+    //使用模型添加数据
+    public function orm2(){
+        //使用模型新增数据
+        /*$student=new Student();
+        $student->name='sean';
+        $student->age=30;
+        $bool=$student->save();
+        dd($bool);*/
+        /*$student=Student::find(12);
+        echo date("Y-m-d H:i:s",$student->created_at);*/
+        //使用模型的create方法新增数据
+        /*$student=Student::create(['name'=>'王五','age'=>18]);
+        dd($student);*/
+        //以属性值查找字段，没有就新增（firstOrCreate()）
+        /*$student=Student::firstOrCreate(['name'=>'胡超1']);
+        var_dump($student);*/
+        //以属性查找用户，若没有则建立新的实例，需要保存提交就save()（成功：返回布尔值）
+        $student=Student::firstOrNew(['name'=>'胡超2']);
+        $bool=$student->save();
+        var_dump($bool);
+    }
+    //使用模型修改数据
+    public function orm3(){
+        //通过模型更新数据(成功：返回布尔值)
+        /*$student=Student::find(15);
+        $student->name='huchao';
+        $bool=$student->save();//更新时间字段
+        var_dump($bool);*/
+        //结合查询语句批量更新（成功：返回更新的行数）
+        $num=Student::where('id','>',11)->update(['age'=>19]);
+        var_dump($num);
+    }
+    //使用模型删除数据
+    public function orm4(){
+        //通过模型删除数据
+       /* $student=Student::find(13);
+        $bool=$student->delete();
+        var_dump($bool);*/
+        //通过主键删除(成功：返回删除的条数)
+        //$num=Student::destroy(15);
+        //$num=Student::destroy(12,14);
+        /*$num=Student::destroy([10,11]);
+        var_dump($num);*/
+        //删除指定条件的数据(成功：返回删除的条数)
+        $num=Student::where('id','>',6)->delete();
+        var_dump($num);
     }
 }
