@@ -11,12 +11,12 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
+Route::get('/', function () {
+    return view('login');
+});
 
 //默认控制器
-Route::get('/', 'Home\IndexController@index');
+/*Route::get('/', 'Home\IndexController@index');
 
 //前台路由组
 Route::group(['namespace' => 'Home'], function(){
@@ -25,7 +25,7 @@ Route::group(['namespace' => 'Home'], function(){
         'as' => 'index', 'uses' => 'IndexController@index'
     ]);
 
-});
+});*/
 
 //后台路由组
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function(){
