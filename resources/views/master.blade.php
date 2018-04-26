@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="/css/book.css">
 </head>
 <body>
+<div class="page">
 @yield('content')
-
+</div>
 <!-- tooltips -->
 <div class="bk_toptips"><span></span></div>{{--弹框提示--}}
 

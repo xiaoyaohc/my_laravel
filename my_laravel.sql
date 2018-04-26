@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地虚拟机(apache)
+Source Server         : 虚拟机(apache)
 Source Server Version : 50548
-Source Host           : 192.168.33.88:3306
+Source Host           : 10.82.8.213:3306
 Source Database       : my_laravel
 
 Target Server Type    : MYSQL
 Target Server Version : 50548
 File Encoding         : 65001
 
-Date: 2018-04-22 18:00:32
+Date: 2018-04-26 17:55:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -90,3 +90,16 @@ CREATE TABLE `product` (
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品表';
+
+-- ----------------------------
+-- Table structure for temp_phone
+-- ----------------------------
+DROP TABLE IF EXISTS `temp_phone`;
+CREATE TABLE `temp_phone` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `phone` varchar(11) NOT NULL COMMENT '手机号',
+  `code` int(11) NOT NULL COMMENT '手机号验证码',
+  `deadline` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '有效期',
+  PRIMARY KEY (`id`),
+  KEY `phone` (`phone`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='手机发送验证码表';
