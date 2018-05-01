@@ -50,13 +50,13 @@ class SendTemplateSMS
            $m3_result->message = 'result error!';
        }
        if($result->statusCode != 0) {
-           $m3_result->status = $result->statusCode;
-           $m3_result->message = $result->statusMsg;
+           $m3_result->status = json_decode(json_encode($result->statusCode),true);
+           $m3_result->message =  json_decode(json_encode($result->statusMsg),true);
        }else{
            $m3_result->status = 0;
            $m3_result->message = '发送成功';
        }
-
+        
        return $m3_result;
   }
 }
